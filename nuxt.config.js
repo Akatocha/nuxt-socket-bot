@@ -46,7 +46,13 @@ export default {
   build: {
   },
 
-  mode: 'spa'
+  target: "static",
+  router: {
+    base: "/nuxt-test-dev"
+  },
+  generate: {
+    dir: "docs"
+  }
 
     /*
   ** Server Middleware
