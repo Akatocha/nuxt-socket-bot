@@ -48,7 +48,7 @@ export default {
 
   target: "static",
   router: {
-    base: "/nuxt-test-dev"
+    base: "/nuxt-socket-bot/"
   },
   generate: {
     dir: "docs"
