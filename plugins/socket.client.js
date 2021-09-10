@@ -3,7 +3,7 @@ import VueSocketIO from "vue-socket.io";
 import SocketIO from 'socket.io-client'
 
 /* Establish Connection */
-const socketConnection = SocketIO('http://localhost:4000');
+const socketConnection = SocketIO('https://socket-bot-bin.herokuapp.com/');
 
 export default function() {
   Vue.use(new VueSocketIO({
