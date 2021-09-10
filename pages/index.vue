@@ -149,6 +149,7 @@ export default {
   },
 
   async mounted() {
+    console.log(process.env);
     this.sockets.subscribe("price", data => {
       const priceFromData = data?.markPrice;
       const priceAscending = Boolean(this.priceData?.markPrice > priceFromData);
