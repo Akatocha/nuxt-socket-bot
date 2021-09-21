@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[0],{128:function(n,o,t){"use strict";var c=t(1),e=t(193),w=t.n(e),k=t(194),r=t.n(k)()("https://socket-bot-bin.herokuapp.com/");o.a=function(){c.a.use(new w.a({debug:!1,connection:r}))}},197:function(n,o,t){t(198),n.exports=t(199)}},[[197,5,1,6]]]);
