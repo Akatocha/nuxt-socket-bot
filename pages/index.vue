@@ -28,86 +28,132 @@
               </tr>
             </tbody>
           </table>
-          <table>
-            <caption>
-              Asks -- Big Volume
-            </caption>
-            <thead>
-              <tr>
-                <th>Volume median</th>
-                <th>{{ depthData.asksMedian }}</th>
-              </tr>
-              <tr>
-                <th>Factor for Depth Volume</th>
-                <th class="factor">{{ depthData.factorOfVolumeDepth }}</th>
-              </tr>
-              <tr>
-                <th>Warning Volume factor</th>
-                <th class="factor">
-                  {{ depthData.targetBigVolumeWarningFactor }}
-                </th>
-              </tr>
-              <tr>
-                <th>Price</th>
-                <th>Volume</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                v-for="(ask, key) in depthData.asksBigVolume"
-                :key="key"
-                :class="{
-                  activeBigAsk: checkTargetVolume(
-                    key,
-                    depthData.targetAsksBigVolume
-                  )
-                }"
-              >
-                <td>{{ key }}</td>
-                <td>{{ ask }}</td>
-              </tr>
-            </tbody>
-          </table>
-          <table>
-            <caption>
-              Bids -- Big Volume
-            </caption>
-            <thead>
-              <tr>
-                <th>Volume median</th>
-                <th>{{ depthData.bidsMedian }}</th>
-              </tr>
-              <tr>
-                <th>Factor for Depth Volume</th>
-                <th class="factor">{{ depthData.factorOfVolumeDepth }}</th>
-              </tr>
-              <tr>
-                <th>Warning Volume factor</th>
-                <th class="factor">
-                  {{ depthData.targetBigVolumeWarningFactor }}
-                </th>
-              </tr>
-              <tr>
-                <th>Price</th>
-                <th>Volume</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                v-for="(bid, key) in depthData.bidsBigVolume"
-                :key="key"
-                :class="{
-                  activeBigBid: checkTargetVolume(
-                    key,
-                    depthData.targetBidsBigVolume
-                  )
-                }"
-              >
-                <td>{{ key }}</td>
-                <td>{{ bid }}</td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="cc_box">
+            <div class="cl_box">
+              <table>
+                <caption>
+                  Asks -- Big Volume
+                </caption>
+                <thead>
+                  <tr>
+                    <th>Volume median</th>
+                    <th>{{ depthData.asksMedian }}</th>
+                  </tr>
+                  <tr>
+                    <th>Factor for Depth Volume</th>
+                    <th class="factor">{{ depthData.factorOfVolumeDepth }}</th>
+                  </tr>
+                  <tr>
+                    <th>Warning Volume factor</th>
+                    <th class="factor">
+                      {{ depthData.targetBigVolumeWarningFactor }}
+                    </th>
+                  </tr>
+                  <tr>
+                    <th>Price</th>
+                    <th>Volume</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="(ask, key) in depthData.asksBigVolume"
+                    :key="key"
+                    :class="{
+                      activeBigAsk: checkTargetVolume(
+                        key,
+                        depthData.targetAsksBigVolume
+                      )
+                    }"
+                  >
+                    <td>{{ key }}</td>
+                    <td>{{ ask }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="cl_box">
+              <table>
+                <caption>
+                  Asks -- Changes Volume
+                </caption>
+                <thead>
+                  <tr>
+                    <th>Price</th>
+                    <th>Volume</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(ask, key) in changesVolumePerPriceAsk" :key="key">
+                    <td>{{ ask.price }}</td>
+                    <td>{{ ask.volume }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="cc_box">
+            <div class="cl_box">
+              <table>
+                <caption>
+                  Bids -- Big Volume
+                </caption>
+                <thead>
+                  <tr>
+                    <th>Volume median</th>
+                    <th>{{ depthData.bidsMedian }}</th>
+                  </tr>
+                  <tr>
+                    <th>Factor for Depth Volume</th>
+                    <th class="factor">{{ depthData.factorOfVolumeDepth }}</th>
+                  </tr>
+                  <tr>
+                    <th>Warning Volume factor</th>
+                    <th class="factor">
+                      {{ depthData.targetBigVolumeWarningFactor }}
+                    </th>
+                  </tr>
+                  <tr>
+                    <th>Price</th>
+                    <th>Volume</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="(bid, key) in depthData.bidsBigVolume"
+                    :key="key"
+                    :class="{
+                      activeBigBid: checkTargetVolume(
+                        key,
+                        depthData.targetBidsBigVolume
+                      )
+                    }"
+                  >
+                    <td>{{ key }}</td>
+                    <td>{{ bid }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="cl_box">
+              <table>
+                <caption>
+                  Bids -- Changes Volume
+                </caption>
+                <thead>
+                  <tr>
+                    <th>Price</th>
+                    <th>Volume</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(bid, key) in changesVolumePerPriceBid" :key="key">
+                    <td>{{ bid.price }}</td>
+                    <td>{{ bid.volume }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
           <table>
             <caption>
               Bids
@@ -141,10 +187,11 @@ export default {
     return {
       priceData: null,
       priceColor: null,
-      tradeVolumeMedian: null,
       trades: [],
       bigTrades: [],
-      depthData: null
+      depthData: null,
+      changesVolumePerPriceAsk: [],
+      changesVolumePerPriceBid: []
     };
   },
 
@@ -169,6 +216,28 @@ export default {
     this.sockets.subscribe("depth", depthData => {
       this.depthData = depthData;
     });
+    this.sockets.subscribe("changesVolumePerPrice", changesVolumePerPrice => {
+      this.changesVolumePerPriceAsk = [
+        ...changesVolumePerPrice.askDepth,
+        ...this.changesVolumePerPriceAsk
+      ];
+      if (this.changesVolumePerPriceAsk.length > 20) {
+        this.changesVolumePerPriceAsk = this.changesVolumePerPriceAsk.slice(
+          0,
+          19
+        );
+      }
+      this.changesVolumePerPriceBid = [
+        ...changesVolumePerPrice.bidDepth,
+        ...this.changesVolumePerPriceBid
+      ];
+      if (this.changesVolumePerPriceBid.length > 20) {
+        this.changesVolumePerPriceBid = this.changesVolumePerPriceBid.slice(
+          0,
+          19
+        );
+      }
+    });
   },
 
   methods: {
@@ -181,7 +250,7 @@ export default {
     },
     getAmountColor(trade) {
       return trade.maker ? "buy" : "sell";
-    },
+    }
   }
 };
 </script>
@@ -233,5 +302,25 @@ td {
   100% {
     transform: scale(1);
   }
+}
+.cl_box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 350px;
+  max-height: 350px;
+  overflow-y: scroll;
+  border: 1px solid rgb(211, 211, 211);
+  border-radius: 5px;
+  margin-bottom: 20px;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+.cc_box {
+  display: flex;
+  flex-direction: column;
 }
 </style>
